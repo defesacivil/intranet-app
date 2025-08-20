@@ -29,24 +29,51 @@ class EquipamentoController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'patrimonio' => "required|max:255",
-            'categoria_id' => 'required|int|max:255',
-            'user_id' => 'required|string|max:255',
+            'patrimonio' => 'required|max:255',
+            'categoria_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
             'situacao' => 'required|string|max:255',
             'diretoria' => 'required|string|max:255',
             'secao_diretoria' => 'required|string|max:255',
         ]);
-        $equipamento = Equipamento::create($request->all());
-        if($equipamento->id){
-            $arrayAdicionar = [
-                'equipamento_id' => $equipamento->id,
-                'user_id' => $request->input('user_id'),
-            ];
-            EquipamentoUser::create($arrayAdicionar);
+
+        $dados = $request->only([
+            'nome',
+            'patrimonio',
+            'categoria_id',
+            'situacao',
+            'diretoria',
+            'secao_diretoria',
+        ]);
+
+        foreach ($dados as $key => $value) {
+            if ($value === '') {
+                $dados[$key] = null;
+            }
+        }
+
+        try {
+            $equipamento = Equipamento::create($dados);
+
+            if ($request->filled('user_id')) {
+                $userData = (new UsuarioController())->getSdcUserById($request->user_id)['data'][0] ?? null;
+                $equipamento->responsavel = $userData['nome'] ?? null;
+                $equipamento->save();
+
+                EquipamentoUser::create([
+                    'equipamento_id' => $equipamento->id,
+                    'user_id' => $request->input('user_id'),
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            dd('Erro ao criar equipamento: ' . $e->getMessage());
         }
 
         return redirect()->route('equipamentos.index')->with('success', 'Equipamento cadastrado com sucesso!');
     }
+
+
 
     public function edit(Equipamento $equipamento)
     {

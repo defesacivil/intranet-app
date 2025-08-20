@@ -19,6 +19,7 @@ class Equipamento extends Model
         'patrimonio',
         'categoria_id',
         'situacao',
+        'responsavel',
         'diretoria',
         'secao_diretoria',
     ];
