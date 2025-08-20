@@ -30,7 +30,8 @@
 
         <div class="mb-3">
             <label for="user_id" class="form-label">Responsável</label>
-            <select name="user_id" class="form-select" required>
+            <select name="user_id" class="form-select js-example-basic-single" required>
+                <option value=""></option>    
                 @foreach($usuarios as $key => $usuario)
                     <option value="{{ $usuario['id_usuario'] }}">{{ $usuario['nome'] }}</option>
                 @endforeach
@@ -59,4 +60,9 @@
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
 @endsection

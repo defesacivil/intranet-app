@@ -58,7 +58,7 @@ createApp({
             'Nome',
             'Patrimônio',
             'Categoria',
-            //'Responsável',
+            'Responsável',
             'Situação',
             'Diretoria',
             'Seção/Diretoria',
@@ -69,7 +69,7 @@ createApp({
             'Nome': e => e.nome ?? '',
             'Patrimônio': e => e.patrimonio ?? '',
             'Categoria': e => e.categoria?.nome ?? '',
-            //'Responsável': e => e.atribuicaoAtual?.user_id ?? '',
+            'Responsável': e => e.responsavel ?? '',
             'Situação': e => e.situacao ?? '',
             'Diretoria': e => e.diretoria ?? '',
             'Seção/Diretoria': e => e.secao_diretoria ?? ''

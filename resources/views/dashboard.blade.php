@@ -4,39 +4,51 @@
 
 @section('content')
 <section class="container my-5">
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
+    <div class="row g-4 justify-content-center">
+        <!-- Equipamentos -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
+                    <i class="fas fa-tools fa-3x mb-3 text-primary"></i>
                     <h5 class="card-title">Equipamentos</h5>
-                    <a href="{{ url('equipamentos') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ url('equipamentos') }}" class="btn btn-outline-primary mt-2">Acessar</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
+
+        <!-- Categorias -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
+                    <i class="fas fa-tags fa-3x mb-3 text-success"></i>
                     <h5 class="card-title">Categorias</h5>
-                    <a href="{{ url('categorias') }}" class="btn btn-primary">Ver</a>
+                    <a href="{{ url('categorias') }}" class="btn btn-outline-success mt-2">Acessar</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
+
+        <!-- Atribuição -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Atribuição</h5>
-                    <a href="{{ url('equipamentos') }}" class="btn btn-primary">Ver</a>
+                    <i class="fas fa-user-check fa-3x mb-3 text-warning"></i>
+                    <h5 class="card-title">Usuarios</h5>
+                    <a href="{{ url('usuarios') }}" class="btn btn-outline-warning mt-2">Usuarios</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
+
+        <!-- Histórico -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Historico</h5>
-                    <a href="{{ url('equipamentos') }}" class="btn btn-primary">Ver</a>
+                    <i class="fas fa-history fa-3x mb-3 text-danger"></i>
+                    <h5 class="card-title">Histórico</h5>
+                    <a href="{{ url('historico') }}" class="btn btn-outline-danger mt-2">Acessar</a>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 @endsection
