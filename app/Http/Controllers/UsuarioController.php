@@ -60,6 +60,14 @@ class UsuarioController extends Controller
     }
 
     public function store(Request $request){
+        
+        $request->validate([
+            'equipamentos.add' => 'array',
+            'equipamentos.add.*' => 'exists:equipamentos,id',
+            'equipamentos.remove' => 'array',
+            'equipamentos.remove.*' => 'exists:equipamentos,id',
+        ]);
+
         if(!empty($request->input('equipamentos.add'))){
             foreach ($request->input('equipamentos.add') as $adicionar) {
                 $arrayAdicionar = [
@@ -67,12 +75,14 @@ class UsuarioController extends Controller
                     'user_id' => $request->input('equipamentos.user'),
                 ];
                 EquipamentoUser::create($arrayAdicionar);
+                Equipamento::where('id', $adicionar)->update(['situacao' => 'Em Uso']);
             }
         }
         if(!empty($request->input('equipamentos.remove'))){
             foreach ($request->input('equipamentos.remove') as $remover) {
-                $equipamento = EquipamentoUser::select()->where('equipamento_id', '=', $remover)->first();
-                $equipamento->delete();
+                $equipamentoUser = EquipamentoUser::select()->where('equipamento_id', '=', $remover)->first();
+                $equipamentoUser->delete();
+                Equipamento::where('id', $remover)->update(['situacao' => 'Disponivel']);
             }
         }
     }

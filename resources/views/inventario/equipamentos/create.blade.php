@@ -10,19 +10,16 @@
         @csrf
         @method('POST')
 
-        <!-- Nome -->
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" name="nome" v-model="form.nome" class="form-control" required>
         </div>
 
-        <!-- Patrimônio -->
         <div class="mb-3">
             <label for="patrimonio" class="form-label">Número de Patrimônio</label>
             <input type="number" name="patrimonio" v-model="form.patrimonio" class="form-control" required>
         </div>
 
-        <!-- Categoria -->
         <div class="mb-3">
             <label for="categoria_id" class="form-label">Categoria</label>
             <select name="categoria_id" v-model="form.categoria_id" class="form-select" required>
@@ -32,7 +29,6 @@
             </select>
         </div>
 
-        <!-- Responsável -->
         <div class="mb-3">
             <label for="user_id" class="form-label">Responsável</label>
             <select name="user_id" id="user_id" class="form-select js-example-basic-single">
@@ -43,19 +39,16 @@
             </select>
         </div>
 
-        <!-- Situação -->
         <div class="mb-3">
             <label for="situacao" class="form-label">Situação</label>
             <input type="text" name="situacao" v-model="situacao" class="form-control" readonly>
         </div>
 
-        <!-- Diretoria -->
         <div class="mb-3">
             <label for="diretoria" class="form-label">Diretoria</label>
             <input type="text" name="diretoria" v-model="form.diretoria" class="form-control" required>
         </div>
 
-        <!-- Seção/Diretoria -->
         <div class="mb-3">
             <label for="secao_diretoria" class="form-label">Seção/Diretoria</label>
             <input type="text" name="secao_diretoria" v-model="form.secao_diretoria" class="form-control" required>
@@ -90,7 +83,6 @@ $(document).ready(function() {
                 this.situacao = this.form.user_id ? 'Em uso' : 'Disponível';
             },
             submitForm() {
-                // Atualiza input hidden antes de enviar
                 this.$el.querySelector('input[name="situacao"]').value = this.situacao;
                 this.$el.querySelector('form').submit();
             }
