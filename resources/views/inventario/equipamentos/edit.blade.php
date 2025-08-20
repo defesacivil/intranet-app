@@ -32,13 +32,12 @@
         <div class="mb-3">
             <label for="user_id" class="form-label">Responsável</label>
             <select name="user_id" id="user_id" class="form-select js-example-basic-single">
-                <option value="">Sem Responsavel</option>
+                <option value="">Sem Responsável</option>
                 @foreach($usuarios as $usuario)
                     <option value="{{ $usuario['id_usuario'] }}">{{ $usuario['nome'] }}</option>
                 @endforeach
             </select>
         </div>
-
         <div class="mb-3">
             <label for="situacao" class="form-label">Situação</label>
             <input type="text" name="situacao" v-model="situacao" class="form-control" readonly>
@@ -57,9 +56,10 @@
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-$(document).ready(function() {
+$(this).ready(function() {
     const vm = new Vue({
         el: '#app',
         data: {
@@ -67,13 +67,18 @@ $(document).ready(function() {
                 nome: '{{ $equipamento->nome }}',
                 patrimonio: '{{ $equipamento->patrimonio }}',
                 categoria_id: '{{ $equipamento->categoria_id }}',
-                user_id: '{{ $equipamento->user_id ?? "" }}',
+                user_id: '{{ $userId }}',
                 diretoria: '{{ $equipamento->diretoria }}',
                 secao_diretoria: '{{ $equipamento->secao_diretoria }}'
             },
-            situacao: '{{ $equipamento->situacao }}'
+            situacao: '{{ $equipamento->situacao }}',
+            usuarios: @json($usuarios)
         },
         methods: {
+            getResponsavelNome() {
+                const usuario = this.usuarios.find(u => u.id_usuario == this.form.user_id);
+                return usuario ? usuario.nome : '';
+            },
             atualizarSituacao() {
                 this.situacao = this.form.user_id ? 'Em uso' : 'Disponível';
             },
@@ -84,10 +89,11 @@ $(document).ready(function() {
         }
     });
 
+    // Inicializa Select2 e sincroniza com Vue
     $('#user_id').val(vm.form.user_id).trigger('change');
     $('#user_id').select2({
-        theme: "bootstrap-5", 
-        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        theme: "bootstrap-5",
+        width: '100%'
     }).on('change', function() {
         vm.form.user_id = $(this).val();
         vm.atualizarSituacao();

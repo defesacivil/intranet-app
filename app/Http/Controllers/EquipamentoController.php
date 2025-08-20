@@ -80,25 +80,64 @@ class EquipamentoController extends Controller
         $usuarioControl = new UsuarioController();
         $usuarios = $usuarioControl->getSdcUsers()['data'];
         $categorias = Categoria::all();
-        return view('inventario.equipamentos.edit', compact('equipamento', 'categorias', 'usuarios'));
+
+        $equipamentoUser = EquipamentoUser::where('equipamento_id', $equipamento->id)->first();
+        $userId = $equipamentoUser->user_id ?? null;
+
+        return view('inventario.equipamentos.edit', compact('equipamento', 'categorias', 'usuarios', 'userId'));
     }
 
     public function update(Request $request, Equipamento $equipamento)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'patrimonio' => "required|",
-            'categoria' => 'required|int|max:255',
-            'responsavel' => 'required|string|max:255',
-            'situacao' => 'required|string',
+            'patrimonio' => 'required|string|max:255',
+            'categoria_id' => 'required|integer',
+            'user_id' => 'nullable|integer',
+            'situacao' => 'required|string|max:255',
             'diretoria' => 'required|string|max:255',
             'secao_diretoria' => 'required|string|max:255',
         ]);
 
-        $equipamento->update($request->all());
+        $dados = $request->only([
+            'nome',
+            'patrimonio',
+            'categoria_id',
+            'situacao',
+            'diretoria',
+            'secao_diretoria',
+        ]);
+
+        foreach ($dados as $key => $value) {
+            if ($value === '') {
+                $dados[$key] = null;
+            }
+        }
+
+        $equipamento->update($dados);
+
+        $userId = $request->input('user_id');
+
+        if ($userId) {
+            $userData = (new UsuarioController())->getSdcUserById($userId)['data'][0] ?? null;
+            $equipamento->responsavel = $userData['nome'] ?? null;
+            $equipamento->save();
+
+            EquipamentoUser::updateOrCreate(
+                ['equipamento_id' => $equipamento->id],
+                ['user_id' => $userId]
+            );
+        } else {
+            $equipamento->responsavel = null;
+            $equipamento->save();
+
+            EquipamentoUser::where('equipamento_id', $equipamento->id)->delete();
+        }
 
         return redirect()->route('equipamentos.index')->with('success', 'Equipamento atualizado com sucesso!');
     }
+
+
 
     public function destroy(Equipamento $equipamento)
     {
