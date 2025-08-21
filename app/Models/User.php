@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class User extends Authenticatable
 {
     use HasFactory;
 
@@ -13,7 +14,6 @@ class Usuario extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id',
         'name',
         'email',
         'email_verified_at',
@@ -31,8 +31,11 @@ class Usuario extends Model
         'email_alt',
         'telefone',
         'masp',
-        'created_at',
-        'updated_at'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     public function atribuicoes()
@@ -46,5 +49,4 @@ class Usuario extends Model
                     ->whereNull('deleted_at')
                     ->with('equipamento');
     }
-
 }
