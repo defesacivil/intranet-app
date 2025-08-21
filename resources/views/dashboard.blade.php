@@ -1,17 +1,54 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+@section('title', 'Página Inicial')
+
+@section('content')
+<section class="container my-5">
+    <div class="row g-4 justify-content-center">
+        <!-- Equipamentos -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-tools fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Equipamentos</h5>
+                    <a href="{{ url('equipamentos') }}" class="btn btn-outline-primary mt-2">Acessar</a>
                 </div>
             </div>
         </div>
+
+        <!-- Categorias -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-tags fa-3x mb-3 text-success"></i>
+                    <h5 class="card-title">Categorias</h5>
+                    <a href="{{ url('categorias') }}" class="btn btn-outline-success mt-2">Acessar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atribuição -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-user-check fa-3x mb-3 text-warning"></i>
+                    <h5 class="card-title">Usuarios</h5>
+                    <a href="{{ url('usuarios') }}" class="btn btn-outline-warning mt-2">Usuarios</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histórico -->
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100 text-center">
+                <div class="card-body">
+                    <i class="fas fa-history fa-3x mb-3 text-danger"></i>
+                    <h5 class="card-title">Histórico</h5>
+                    <a href="{{ url('historico') }}" class="btn btn-outline-danger mt-2">Acessar</a>
+                </div>
+            </div>
+        </div>
+
     </div>
-</x-app-layout>
+</section>
+@endsection

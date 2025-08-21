@@ -6,7 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/equipamentos', [EquipamentoController::class, 'index'])->name('equipamentos.index');
