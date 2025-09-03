@@ -32,6 +32,9 @@
                                     @{{ impressaoDados[dado](equip) }}
                                 </template>
                                 <template v-else>
+                                    <a :href="`/equipamentos/${equip.id}/historico`" class="btn btn-sm btn-outline-warning me-1">
+                                        <i class="fas fa-history"></i>
+                                    </a>
                                     <a :href="`/equipamentos/${equip.id}/edit`" class="btn btn-sm btn-outline-primary me-1">
                                         <i class="fas fa-edit"></i>
                                     </a>

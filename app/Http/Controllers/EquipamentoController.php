@@ -137,12 +137,20 @@ class EquipamentoController extends Controller
         return redirect()->route('equipamentos.index')->with('success', 'Equipamento atualizado com sucesso!');
     }
 
-
-
     public function destroy(Equipamento $equipamento)
     {
         $equipamento->delete();
         return redirect()->route('equipamentos.index')
             ->with('success', 'Equipamento deletado com sucesso!');
+    }
+
+    public function historico($equipamento)
+    {
+        $equipamentos = Equipamento::join('equipamentos_users','equipamentos_users.equipamento_id', '=', 'equipamentos.id')
+            ->where('equipamentos.id', '=', $equipamento)
+            ->orderBy('equipamentos_users.created_at')
+            ->get();
+
+        return view('inventario.equipamentos.historico', ['equipamentos' => $equipamentos]);
     }
 }

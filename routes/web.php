@@ -13,6 +13,7 @@ Route::get('/equipamentos', [EquipamentoController::class, 'index'])->name('equi
 Route::get('/equipamentos/create', [EquipamentoController::class, 'create'])->name('equipamentos.create');
 Route::post('/equipamentos/store', [EquipamentoController::class, 'store'])->name('equipamentos.store');
 Route::get('/equipamentos/{equipamento}/edit', [EquipamentoController::class, 'edit'])->name('equipamentos.edit');
+Route::get('/equipamentos/{equipamento}/historico', [EquipamentoController::class, 'historico'])->name('equipamentos.historico');
 Route::put('/equipamentos/{equipamento}', [EquipamentoController::class, 'update'])->name('equipamentos.update');
 Route::delete('/equipamentos/{equipamento}', [EquipamentoController::class, 'destroy'])->name('equipamentos.destroy');
 

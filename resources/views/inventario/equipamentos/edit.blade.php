@@ -9,7 +9,6 @@
     <form action="{{ route('equipamentos.update', ['equipamento' => $equipamento->id]) }}" method="POST" @submit.prevent="submitForm">
         @csrf
         @method('PUT')
-
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" name="nome" v-model="form.nome" class="form-control" required>
