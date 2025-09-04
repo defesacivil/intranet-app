@@ -17,6 +17,13 @@ class EquipamentoController extends Controller
         return view('inventario.equipamentos.index', compact('equipamentos'));
     }
 
+    public function show($equipamento)
+    {
+        $equipamento = Equipamento::with(['categoria', 'registros'])
+        ->findOrFail($equipamento);
+        return view('inventario.equipamentos.show', compact('equipamento'));
+    }
+
     public function create()
     {
         $usuarioControl = new UsuarioController();
@@ -151,6 +158,12 @@ class EquipamentoController extends Controller
             ->orderBy('equipamentos_users.created_at')
             ->get();
 
-        return view('inventario.equipamentos.historico', ['equipamentos' => $equipamentos]);
+        $equipamentosFormatados = $equipamentos->map(function ($equipamento) {
+            $user = UsuarioController::getSdcUserById($equipamento->user_id);
+            $equipamento->nomeUsuario = $user['data'][0]['nome'];
+            return $equipamento;
+        });
+
+        return view('inventario.equipamentos.historico', ['equipamentos' => $equipamentosFormatados]);
     }
 }

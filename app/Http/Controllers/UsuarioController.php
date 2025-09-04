@@ -29,7 +29,7 @@ class UsuarioController extends Controller
        
     }
 
-    public function getSdcUserById($id)
+    public static function getSdcUserById($id)
     {
         
         $userUrl = "http://www.sdc.mg.gov.br/api/sdc/user/{$id}";
@@ -74,15 +74,17 @@ class UsuarioController extends Controller
                     'equipamento_id' => $adicionar,
                     'user_id' => $request->input('equipamentos.user'),
                 ];
+
                 EquipamentoUser::create($arrayAdicionar);
-                Equipamento::where('id', $adicionar)->update(['situacao' => 'Em Uso']);
+                Equipamento::where('id', $adicionar)->update(['situacao' => 'Em Uso', 'responsavel' => $request->input('equipamentos.nomeUser')]);
+        
             }
         }
         if(!empty($request->input('equipamentos.remove'))){
             foreach ($request->input('equipamentos.remove') as $remover) {
                 $equipamentoUser = EquipamentoUser::select()->where('equipamento_id', '=', $remover)->first();
                 $equipamentoUser->delete();
-                Equipamento::where('id', $remover)->update(['situacao' => 'Disponivel']);
+                Equipamento::where('id', $remover)->update(['situacao' => 'Disponivel', 'responsavel' => null]);
             }
         }
     }
@@ -152,5 +154,22 @@ class UsuarioController extends Controller
         $equipamento->save();
 
         return redirect()->back()->with('success', 'Equipamento transferido com sucesso!');
+    }
+
+    public function historico($usuario)
+    {
+        $usuarios = EquipamentoUser::withTrashed()
+            ->join('equipamentos','equipamentos_users.equipamento_id', '=', 'equipamentos.id')
+            ->where('user_id', '=', $usuario)
+            ->orderBy('equipamentos_users.created_at')
+            ->get();
+
+        $usuariosFormatados = $usuarios->map(function ($usuario) {
+            $user = UsuarioController::getSdcUserById($usuario->user_id);
+            $usuario->nomeUsuario = $user['data'][0]['nome'];
+            return $usuario;
+        });
+
+        return view('inventario.usuarios.historico', ['usuarios' => $usuariosFormatados]);
     }
 }

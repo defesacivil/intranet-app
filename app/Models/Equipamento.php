@@ -49,4 +49,9 @@ class Equipamento extends Model
                 ->whereNull('equipamentos_users.deleted_at');
     }
 
+    public function registros()
+    {
+        return $this->hasMany(Registros::class);
+    }
+
 }

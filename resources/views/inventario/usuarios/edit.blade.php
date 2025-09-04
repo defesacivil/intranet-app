@@ -147,6 +147,7 @@ createApp({
         await axios.post(`/usuarios/store/`, {
           equipamentos: {
             user: this.usuario.id_usuario,
+            nomeUser: this.usuario['nome'],
             add: this.selecionadosParaAdicionar,
             remove: this.selecionadosParaRemover,
           }
