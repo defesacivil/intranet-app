@@ -9,32 +9,24 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-
-                <!-- Equipamentos -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/equipamentos') }}">
                         <i class="fas fa-tools me-1 text-primary"></i>Equipamentos
                     </a>
                 </li>
-
-                <!-- Categorias -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/categorias') }}">
                         <i class="fas fa-tags me-1 text-success"></i>Categorias
                     </a>
                 </li>
-
-                <!-- Atribuição -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/usuarios') }}">
                         <i class="fas fa-user-check me-1 text-warning"></i>Usuarios
                     </a>
                 </li>
-
-                <!-- Histórico -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/historico') }}">
-                        <i class="fas fa-history me-1 text-danger"></i>Histórico
+                        <i class="fas fa-tasks me-1 text-danger"></i>Relatorios
                     </a>
                 </li>
             </ul>

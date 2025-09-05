@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrosController;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::resource('registros', RegistrosController::class)->only(['store', 'update', 'destroy']);
 
