@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-5" id="app">
+<div class="container my-5" id="app" v-cloak>
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="input-group mb-3">

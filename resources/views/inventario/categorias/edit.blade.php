@@ -3,7 +3,7 @@
 @section('title', 'Editar Equipamento')
 
 @section('content')
-<div class="container my-5" id="app">
+<div class="container my-5" id="app" v-cloak>
     <h2>Editar Equipamento</h2>
 
     <form action="{{ route('categorias.update', ['categoria' => $categoria->id]) }}" method="POST">

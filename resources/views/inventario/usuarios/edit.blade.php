@@ -3,7 +3,7 @@
 @section('title', 'Editar Equipamentos do Usuário')
 
 @section('content')
-<div id="app" class="container my-4">
+<div id="app" class="container my-4" v-cloak>
 
   <h1 class="mb-4">Editar Equipamentos do Usuário: {{ $usuario['nome'] }}</h1>
 

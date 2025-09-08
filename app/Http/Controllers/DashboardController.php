@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Equipamento;
 
 class DashboardController extends Controller 
@@ -14,6 +15,7 @@ class DashboardController extends Controller
             ->groupBy('categoria_id')
             ->selectRaw('categorias.nome,categoria_id, count(*) as count')
             ->get();
+
         return view('inventario.dashboard.index', compact('totaisEquipamentos','totalPorCategorias'));
     }
 

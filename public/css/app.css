@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[v-cloak] {
+    display: none;
+}
+
+:root {
+    --dc-orange: #FF6600;
+    --dc-blue: #003366;
+    --dc-navy: #001f2e;
+    --card-bg: rgba(255, 255, 255, 0.96);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.login-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.34);
+}
+
+.login-logo {
+    max-height: 90px;
+    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.18));
+}
+
+h1.h4 {
+    color: var(--dc-blue);
+}
+
+.form-control {
+    border: 1.5px solid var(--dc-blue);
+    border-radius: 8px;
+    padding: .62rem .75rem;
+    transition: box-shadow .18s ease, border-color .18s ease, transform .08s ease;
+    background: #fff;
+}
+
+.form-control:focus {
+    border-color: var(--dc-orange);
+    box-shadow: 0 8px 22px rgba(0, 102, 153, 0.10);
+    outline: none;
+}
+
+.btn-dc {
+    background: linear-gradient(90deg, var(--dc-orange) 0%, #ff7a1a 100%);
+    border: none;
+    border-radius: 8px;
+    padding: .6rem .9rem;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.18);
+    transition: transform .08s ease, box-shadow .12s ease;
+}
+
+.btn-dc:hover,
+.btn-dc:focus {
+    transform: translateY(-1px);
+    filter: brightness(.96);
+    box-shadow: 0 10px 26px rgba(255, 102, 0, 0.22);
+}
+
+.vh-center {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}

@@ -3,7 +3,7 @@
 @section('title', 'Cadastrar Equipamento')
 
 @section('content')
-<div class="container my-5" id="app">
+<div class="container my-5" id="app" v-cloak>
     <h2>Cadastrar Novo Equipamento</h2>
 
     <form action="{{ route('equipamentos.store') }}" method="POST" @submit.prevent="submitForm">
@@ -17,7 +17,7 @@
 
         <div class="mb-3">
             <label for="patrimonio" class="form-label">Número de Patrimônio</label>
-            <input type="number" name="patrimonio" v-model="form.patrimonio" class="form-control" required>
+            <input type="text" name="patrimonio" v-model="form.patrimonio" class="form-control" required>
         </div>
 
         <div class="mb-3">

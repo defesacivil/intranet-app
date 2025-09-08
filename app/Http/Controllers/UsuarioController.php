@@ -170,6 +170,8 @@ class UsuarioController extends Controller
             return $usuario;
         });
 
-        return view('inventario.usuarios.historico', ['usuarios' => $usuariosFormatados]);
+        $usuarioNome = $this->getSdcUserById($usuario)['data'][0]['nome'];
+        
+        return view('inventario.usuarios.historico', ['usuarios' => $usuariosFormatados, 'usuarioNome' => $usuarioNome]);
     }
 }

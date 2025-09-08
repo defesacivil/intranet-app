@@ -3,7 +3,7 @@
 @section('title', 'Detalhes do Equipamento')
 
 @section('content')
-<div class="container my-5" id="app">
+<div class="container my-5" id="app" v-cloak>
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Detalhes do Equipamento</h4>
