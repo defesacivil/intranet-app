@@ -22,7 +22,6 @@ class Registros extends Model
         'equipamento_id',
         'tipo',
         'descricao',
-        'data',
     ];
 
     public function equipamento()

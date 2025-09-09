@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class UsuarioController extends Controller
 {
-    public function getSdcUsers()
+    public static function getSdcUsers()
     {
         $usersUrl = "http://www.sdc.mg.gov.br/api/sdc/user/all"; 
 
@@ -52,6 +52,24 @@ class UsuarioController extends Controller
         $users = $this->getSdcUsers()['data'];
         $todosEquipamentos = Equipamento::all();
         return view('inventario.usuarios.index', compact('users'));
+    }
+
+    public function show($id)
+    { 
+        $usuario = $this->getSdcUserById($id)['data'][0];
+
+        $usuarioEquipamentos = EquipamentoUser::with('equipamento')
+            ->where('user_id', $usuario['id_usuario'])
+            ->whereNull('deleted_at')
+            ->get();
+
+        $equipamentosDisponiveis = Equipamento::whereNotIn('id', function($query) {
+            $query->select('equipamento_id')
+                ->from('equipamentos_users')
+                ->whereNull('deleted_at'); 
+        })->paginate(10);
+
+        return view('inventario.usuarios.show', compact('usuario', 'equipamentosDisponiveis', 'usuarioEquipamentos'));
     }
 
     public function create()

@@ -9,13 +9,11 @@
                 <i class="fas fa-plus-circle"></i> Novo Equipamento
             </a>
         </div>
-
         <div class="card-body">
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
                 <input type="text" class="form-control" placeholder="Buscar por nome" v-model="search">
             </div>
-
             <div class="table-responsive" style="max-height: 500px;">
                 <table v-if="impressaoModelo.length" class="table table-hover table-bordered align-middle">
                     <thead class="table-light">
@@ -73,7 +71,6 @@ createApp({
             'Seção/Diretoria',
             'Ações'
         ];
-       
         const impressaoDados = {
             'Nome': e => e.nome ?? '',
             'Patrimônio': e => e.patrimonio ?? '',
@@ -83,7 +80,6 @@ createApp({
             'Diretoria': e => e.diretoria ?? '',
             'Seção/Diretoria': e => e.secao_diretoria ?? ''
         };
-
         return {
             impressaoModelo,
             impressaoDados,

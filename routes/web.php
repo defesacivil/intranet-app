@@ -9,17 +9,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrosController;
 
 Route::get('/', function () {
-    if (!auth()->check()) {
-        return redirect()->route('login'); 
-    }
     return redirect()->route('dashboard.index');
 });
 
 Route::post('/logar', [LoginController::class, 'login']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('registros', RegistrosController::class)->only(['store', 'update', 'destroy']);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/equipamentos', [EquipamentoController::class, 'index'])->name('equipamentos.index');
     Route::get('/equipamentos/create', [EquipamentoController::class, 'create'])->name('equipamentos.create');
@@ -42,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/usuarios/store', [UsuarioController::class, 'store'])->name('usuarios.store');
     Route::get('/usuarios/{usuario}/historico', [UsuarioController::class, 'historico'])->name('usuarios.historico');
     Route::get('/usuarios/{usuario}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit');
+    Route::get('/usuarios/{usuario}/show', [UsuarioController::class, 'show'])->name('usuarios.show');
     Route::put('/usuarios/{usuario}', [UsuarioController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{usuario}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
 });

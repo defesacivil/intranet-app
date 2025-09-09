@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Equipamento;
+use App\Http\Controllers\UsuarioController;
 
 class DashboardController extends Controller 
 {
@@ -16,6 +17,8 @@ class DashboardController extends Controller
             ->selectRaw('categorias.nome,categoria_id, count(*) as count')
             ->get();
 
+        //$usuarios = UsuarioController::getSdcUsers();
+        //dd($usuarios);
         return view('inventario.dashboard.index', compact('totaisEquipamentos','totalPorCategorias'));
     }
 
