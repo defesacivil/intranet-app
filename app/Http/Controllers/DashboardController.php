@@ -17,9 +17,9 @@ class DashboardController extends Controller
             ->selectRaw('categorias.nome,categoria_id, count(*) as count')
             ->get();
 
-        //$usuarios = UsuarioController::getSdcUsers();
-        //dd($usuarios);
-        return view('inventario.dashboard.index', compact('totaisEquipamentos','totalPorCategorias'));
+        $usuarios = UsuarioController::getSdcUsers();
+
+        return view('inventario.dashboard.index', compact('totaisEquipamentos','totalPorCategorias', 'usuarios'));
     }
 
 }

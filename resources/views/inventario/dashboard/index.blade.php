@@ -61,11 +61,11 @@
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <h4 class="mb-0"><i class="fas fa-boxes"></i>Ver Equipamentos</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body d-block">
                 <div class="table-responsive" style="max-height: 500px;">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        <input type="text" class="form-control" placeholder="Buscar por nome" v-model="search">
+                        <input type="text" class="form-control" placeholder="Buscar por usúario" v-model="search">
                     </div>
                     <table class="table table-hover table-bordered align-middle">
                         <thead class="table-light">
@@ -100,9 +100,9 @@
         <div class="col-md-6"> 
           <div class="card shadow-sm">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h4 class="mb-0"><i class="fas fa-boxes"></i> Quantidades por categoria</h4>
+                <h4 class="mb-0"><i class="fas fa-boxes"></i>Quantidade por Categoria</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body d-block">
                 <div class="table-responsive" style="max-height: 500px;">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -111,16 +111,28 @@
                     <table class="table table-hover table-bordered align-middle">
                         <thead class="table-light">
                             <tr>
-                              <td>Categoria</td>
-                              <td>Quantidade</td>
+                                <th v-for="(dado, index) in impressaoModeloCategorias" :key="index" class="text-center">
+                                    @{{ index }}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="cat in totaisPorCategoria" :key="cat.categoria_id">
-                              <td>@{{ cat.nome }}</td>
-                              <td>@{{ cat.count }}</td>
-                          </tr>
-                      </tbody>
+                            <tr v-if="filteredCategorias.length === 0">         
+                                <td colspan="2" class="text-center">Nenhum material encontrado.</td>
+                            </tr>
+                            <tr v-for="cat in filteredCategorias" :key="cat?.categoria_id">
+                                <td v-for="(columnTitle, colIndex) in impressaoModeloCategorias" :key="colIndex" class="text-center align-middle">
+                                    <template v-if="columnTitle !== 'Ações'">
+                                        @{{ cat[columnTitle] ?? cat[colIndex.toLowerCase()] ?? '' }}
+                                    </template>
+                                    <template v-else>
+                                        <a class="btn btn-sm btn-info me-1" :href="`/usuarios/${equip.id_usuario}/show`">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </template>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -138,14 +150,13 @@
 
     const totaisEquipamentos = @json($totaisEquipamentos->values() ?? []);
     const totaisPorCategoria = @json($totalPorCategorias->values() ?? []);
-    const equipamentosData = @json($usuarios['data'] ?? []); 
+    const equipamentosData = @json($usuarios ?? []); 
 
     createApp({
         components: {
             apexchart: VueApexCharts
         },
         data() {
-          console.log('Totais por categoria:', totaisPorCategoria);
             const impressaoModelo = [
                 'Usuário',
                 'Ações',
@@ -155,14 +166,14 @@
                 'Usuário': equip => equip.nome ?? 'Nome Indisponível',
             };
 
-            const impressaoModeloCategorias = [
-                'Nome',
-                'Quantidade',
-            ];
+            const impressaoModeloCategorias = {
+                'Nome': 'nome',
+                'Quantidade': 'count'
+            };
 
             const impressaoDadosCategoria = {
                 'Nome': cat => cat.nome ?? 'Categoria Indisponível',
-                'Quantidade': cat => cat.count ?? '—',
+                'Count': cat => cat.count ?? '—',
             };
 
             return {
@@ -171,9 +182,11 @@
                 
                 impressaoModelo,
                 impressaoDados, 
-                
+                impressaoDadosCategoria,
+                impressaoModeloCategorias,
                 usuarios: equipamentosData,
                 search: '', 
+                searchCategoria: '',
 
                 optionsTotalPorSituacao: {
                     chart: { type: 'donut', toolbar: { show: false } },
@@ -200,6 +213,8 @@
             };
         },
         computed: {
+            console: () => console,
+            window: () => window,
             filteredEquipamentos() {
                 if (!this.search) {
                     return this.usuarios;
@@ -210,8 +225,9 @@
                 });
             },
             filteredCategorias() {
-                if (!this.searchCategoria) return this.totaisPorCategoria;
-
+                if (!this.searchCategoria) 
+                    return this.totaisPorCategoria;
+                const searchCategoriaTerm = this.searchCategoria.toLowerCase();
                 return this.totaisPorCategoria.filter(cat =>
                     cat.nome.toLowerCase().includes(this.searchCategoria.toLowerCase())
                 );
@@ -226,6 +242,7 @@
             }
         }
     }).mount('#app');
+    
 </script>
 @endsection
 

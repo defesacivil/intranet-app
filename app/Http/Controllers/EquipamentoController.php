@@ -27,7 +27,7 @@ class EquipamentoController extends Controller
     public function create()
     {
         $usuarioControl = new UsuarioController();
-        $usuarios = $usuarioControl->getSdcUsers()['data'];
+        $usuarios = $usuarioControl->getSdcUsers() ;
         $categorias = Categoria::all();
         return view('inventario.equipamentos.create', compact('categorias', 'usuarios'));
     }
@@ -63,7 +63,7 @@ class EquipamentoController extends Controller
             $equipamento = Equipamento::create($dados);
 
             if ($request->filled('user_id')) {
-                $userData = (new UsuarioController())->getSdcUserById($request->user_id)['data'][0] ?? null;
+                $userData = (new UsuarioController())->getSdcUserById($request->user_id) [0] ?? null;
                 $equipamento->responsavel = $userData['nome'] ?? null;
                 $equipamento->save();
 
@@ -85,7 +85,7 @@ class EquipamentoController extends Controller
     public function edit(Equipamento $equipamento)
     {
         $usuarioControl = new UsuarioController();
-        $usuarios = $usuarioControl->getSdcUsers()['data'];
+        $usuarios = $usuarioControl->getSdcUsers() ;
         $categorias = Categoria::all();
 
         $equipamentoUser = EquipamentoUser::where('equipamento_id', $equipamento->id)->first();
@@ -126,7 +126,7 @@ class EquipamentoController extends Controller
         $userId = $request->input('user_id');
 
         if ($userId) {
-            $userData = (new UsuarioController())->getSdcUserById($userId)['data'][0] ?? null;
+            $userData = (new UsuarioController())->getSdcUserById($userId) [0] ?? null;
             $equipamento->responsavel = $userData['nome'] ?? null;
             $equipamento->save();
 
@@ -160,7 +160,7 @@ class EquipamentoController extends Controller
 
         $equipamentosFormatados = $equipamentos->map(function ($equipamento) {
             $user = UsuarioController::getSdcUserById($equipamento->user_id);
-            $equipamento->nomeUsuario = $user['data'][0]['nome'];
+            $equipamento->nomeUsuario = $user [0]['nome'];
             return $equipamento;
         });
 

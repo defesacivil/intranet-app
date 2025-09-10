@@ -42,21 +42,21 @@ class UsuarioController extends Controller
         if ($response->failed()) {
             return back()->with('error', 'Falha ao conectar à API.');
         }
-
+        
         return $response->json(); 
     }
 
 
     public function index()
     { 
-        $users = $this->getSdcUsers()['data'];
+        $users = $this->getSdcUsers();
         $todosEquipamentos = Equipamento::all();
         return view('inventario.usuarios.index', compact('users'));
     }
 
     public function show($id)
     { 
-        $usuario = $this->getSdcUserById($id)['data'][0];
+        $usuario = $this->getSdcUserById($id)[0];
 
         $usuarioEquipamentos = EquipamentoUser::with('equipamento')
             ->where('user_id', $usuario['id_usuario'])
@@ -124,7 +124,7 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
-        $usuario = $this->getSdcUserById($id)['data'][0];
+        $usuario = $this->getSdcUserById($id)[0];
 
         $usuarioEquipamentos = EquipamentoUser::with('equipamento')
             ->where('user_id', $usuario['id_usuario'])
@@ -184,11 +184,11 @@ class UsuarioController extends Controller
 
         $usuariosFormatados = $usuarios->map(function ($usuario) {
             $user = UsuarioController::getSdcUserById($usuario->user_id);
-            $usuario->nomeUsuario = $user['data'][0]['nome'];
+            $usuario->nomeUsuario = $user[0]['nome'];
             return $usuario;
         });
 
-        $usuarioNome = $this->getSdcUserById($usuario)['data'][0]['nome'];
+        $usuarioNome = $this->getSdcUserById($usuario)[0]['nome'];
         
         return view('inventario.usuarios.historico', ['usuarios' => $usuariosFormatados, 'usuarioNome' => $usuarioNome]);
     }
