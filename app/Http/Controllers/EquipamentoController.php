@@ -28,6 +28,7 @@ class EquipamentoController extends Controller
     {
         $usuarioControl = new UsuarioController();
         $usuarios = $usuarioControl->getSdcUsers() ;
+
         $categorias = Categoria::all();
         return view('inventario.equipamentos.create', compact('categorias', 'usuarios'));
     }

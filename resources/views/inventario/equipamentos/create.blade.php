@@ -50,7 +50,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="secao_diretoria" class="form-label">Seção/Diretoria</label>
+            <label for="secao_diretoria" class="form-label">Seção</label>
             <input type="text" name="secao_diretoria" v-model="form.secao_diretoria" class="form-control" required>
         </div>
 
