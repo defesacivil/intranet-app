@@ -40,8 +40,30 @@
         </div>
 
         <div class="mb-3">
-            <label for="situacao" class="form-label">Situação</label>
-            <input type="text" name="situacao" v-model="situacao" class="form-control" readonly>
+            <label for="secao_diretoria" class="form-label">Seção</label>
+            <select class="form-select js-example-basic-single" name="secao_diretoria" v-model="form.secao_diretoria">
+                <option value="">Selecione uma opção</option>
+                <option value="CHEFIA">CHEFIA</option>
+                <option value="SADM">SADM</option>
+                <option value="STO">STO</option>
+                <option value="DEPOS">DEPOS</option>
+                <option value="DADM">DADM</option>
+                <option value="DEDC">DEDC</option>
+                <option value="CCE">CCE</option>
+                <option value="DTEC">DTEC</option>
+                <option value="DAR">DAR</option>
+                <option value="SECRETARIA">SECRETARIA</option>
+                <option value="DLOG">DLOG</option>
+                <option value="DLS">DLS</option>
+                <option value="DPLAN">DPLAN</option>
+                <option value="DRRD">DRRD</option>
+                <option value="CEDEC">CEDEC</option>
+                <option value="NCO">NCO</option>
+                <option value="GMG">GMG</option>
+                <option value="ADS">ADS</option>
+                <option value="GOV">GOV</option>
+                <option value="DRD">DRD</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -50,8 +72,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="secao_diretoria" class="form-label">Seção</label>
-            <input type="text" name="secao_diretoria" v-model="form.secao_diretoria" class="form-control" required>
+            <label for="situacao" class="form-label">Situação</label>
+            <input type="text" name="situacao" v-model="situacao" class="form-control" readonly>
         </div>
 
         <button type="submit" class="btn btn-primary">Salvar</button>
