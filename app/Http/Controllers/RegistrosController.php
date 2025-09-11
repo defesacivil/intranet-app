@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipamento;
 use App\Models\Registros;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,10 @@ class RegistrosController extends Controller
             'descricao'      => 'required|string|max:1000',
         ]);
 
-        Registros::create($request->all());
+        if(Registros::create($request->all())){
+            $equipamento = Equipamento::findOrFail($request->input('equipamento_id'));
+            $equipamento->update(['situacao' => 'Baixado']);
+        }
 
         return redirect()->back()->with('success', 'Registro adicionado com sucesso!');
     }

@@ -24,9 +24,11 @@
             <div class="card shadow-sm">
                 <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
                     <h6 class="mb-0">Registros do Equipamento</h6>
+                    @if($equipamento->situacao != 'Baixado')
                     <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistro">
                         + Adicionar
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if($equipamento->registros->isEmpty())

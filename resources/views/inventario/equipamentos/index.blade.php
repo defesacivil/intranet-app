@@ -32,17 +32,19 @@
                                 <template v-else>
                                     <a :href="`/equipamentos/${equip.id}/historico
                                     
-                                    `" class="btn btn-sm btn-outline-warning me-1">
+                                    `" class="btn btn-sm btn-outline-warning me-1" title="Historico">
                                         <i class="fas fa-history"></i>
                                     </a>
                                     <a :href="`/equipamentos/${equip.id}/show
-                                    `" class="btn btn-sm btn-outline-success me-1">
+                                    `" class="btn btn-sm btn-outline-success me-1" title="Detalhes">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a :href="`/equipamentos/${equip.id}/edit`" class="btn btn-sm btn-outline-primary me-1">
+                                    <a :href="`/equipamentos/${equip.id}/edit`" class="btn btn-sm btn-outline-primary me-1" 
+                                        :class="equip?.situacao === 'Baixado' ? 'disabled-link' : ''"
+                                        :title="equip?.situacao === 'Baixado' ? 'Equipamento baixado - edição bloqueada' : 'Editar'">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <button class="btn btn-sm btn-outline-danger" @click="deleteEquipamento(equip.id)">
+                                    <button class="btn btn-sm btn-outline-danger" @click="deleteEquipamento(equip.id)" title="Deletar">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </template>
